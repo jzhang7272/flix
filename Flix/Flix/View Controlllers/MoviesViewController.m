@@ -12,6 +12,7 @@
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -19,6 +20,12 @@
 @end
 
 @implementation MoviesViewController
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.activityIndicator.center=self.view.center;
+    [self.activityIndicator startAnimating];
+    [self.view addSubview:self.activityIndicator];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +33,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    // Stop Activity Indicator
     [self fetchMovies];
+    [self.activityIndicator stopAnimating];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
@@ -42,16 +51,26 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
+               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Get Movies" message:@"No internet connection." preferredStyle:(UIAlertControllerStyleAlert)];
+               
+               // create an OK action
+               UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+               
+               // add the OK action to the alert controller
+               [alert addAction:okAction];
+               [self presentViewController:alert animated:YES completion:^{
+                   // optional code for what happens after the alert controller has finished presenting
+               }];
+               // NSLog(@"%@", [error localizedDescription]);
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               NSLog(@"%@", dataDictionary);
+               // NSLog(@"%@", dataDictionary);
                
                self.movies = dataDictionary[@"results"];
-               for (NSDictionary *movie in self.movies){
-                   NSLog(@"%@",movie[@"title"]);
-               }
+//               for (NSDictionary *movie in self.movies){
+//                   NSLog(@"%@",movie[@"title"]);
+//               }
                
                [self.tableView reloadData];
                // TODO: Get the array of movies
