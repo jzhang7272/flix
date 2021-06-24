@@ -6,6 +6,8 @@
 //
 
 #import "MoviesViewController.h"
+#import "MovieCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -58,10 +60,21 @@
     return self.movies.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+//    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
     NSDictionary *movie = self.movies[indexPath.row];
-    cell.textLabel.text = movie[@"title"];
+//    cell.textLabel.text = movie[@"title"];
+    cell.titleLabel.text = movie[@"title"];
+    cell.synopsisLabel.text = movie[@"overview"];
+    NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURL = movie[@"poster_path"];
+    NSString *fullURL = [baseURL stringByAppendingString:posterURL];
+    NSURL *URL = [NSURL URLWithString:fullURL];
+    cell.posterView.image = nil;
+    [cell.posterView setImageWithURL:URL];
+    
     
     return cell;
 }
