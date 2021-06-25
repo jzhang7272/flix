@@ -126,14 +126,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXJ-c8-T1Y">
-                                <rect key="frame" x="159" y="240" width="235" height="51"/>
+                                <rect key="frame" x="159" y="240" width="235" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <font key="NSFont" size="28" name="HiraginoSans-W6"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1.3" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -195,11 +195,11 @@
             </objects>
             <point key="canvasLocation" x="992.75362318840587" y="1597.7678571428571"/>
         </scene>
-        <!--Row-->
+        <!--Navigation Controller-->
         <scene sceneID="J8K-jn-vtm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xzv-Yi-Zkh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Row" id="05J-wC-dRH"/>
+                    <tabBarItem key="tabBarItem" title="" image="table_image" id="05J-wC-dRH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I14-AT-Vko">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -214,11 +214,11 @@
             </objects>
             <point key="canvasLocation" x="254" y="29"/>
         </scene>
-        <!--Grid-->
+        <!--Navigation Controller-->
         <scene sceneID="gk0-NK-IjK">
             <objects>
                 <navigationController id="wYh-gu-5Kw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Grid" id="qob-Ec-NKj"/>
+                    <tabBarItem key="tabBarItem" title="" image="colllection_image" largeContentSizeImage="collection_image" id="qob-Ec-NKj"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gi8-sQ-0fE">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -240,7 +240,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h2l-9K-5Qc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="132" width="414" height="764"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yMy-2b-OhN">
@@ -271,6 +271,11 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iSl-34-JW4">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="T8j-2u-zwM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -278,17 +283,21 @@
                     <navigationItem key="navigationItem" title="Now Playing" id="Pwy-au-0Y9"/>
                     <connections>
                         <outlet property="collectionView" destination="h2l-9K-5Qc" id="vxh-NV-rsm"/>
+                        <outlet property="searchBar" destination="iSl-34-JW4" id="kSc-zj-C7M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeA-Xw-xfK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="713"/>
+            <point key="canvasLocation" x="1863.7681159420292" y="712.5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nq0-wR-MNR"/>
+        <segue reference="iqE-bv-tD3"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="collection_image" width="240" height="240"/>
+        <image name="colllection_image" width="24" height="24"/>
+        <image name="table_image" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

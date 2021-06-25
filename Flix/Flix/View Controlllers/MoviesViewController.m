@@ -15,8 +15,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSArray *movies;
-@property (strong, nonatomic) NSArray *filteredData; // array of movies
-@property (strong, nonatomic) NSMutableDictionary *movieDict; // title and movie
+@property (strong, nonatomic) NSArray *filteredData;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
@@ -105,8 +104,6 @@
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
-    NSLog(@"Array:\n%@", self.filteredData);
-    
     NSDictionary *movie = self.filteredData[indexPath.row];
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
@@ -121,22 +118,26 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
     if (searchText.length != 0) {
-        
-//        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-//            return [evaluatedObject containsString:searchText];
-//        }];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title CONTAINS[cd] %@)", searchText];
         self.filteredData = [self.movies filteredArrayUsingPredicate:predicate];
-        
     }
     else {
         self.filteredData = self.movies;
     }
-    
     [self.tableView reloadData];
- 
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    self.filteredData = self.movies;
+    [self.tableView reloadData];
+    [self.searchBar resignFirstResponder];
 }
 
 
@@ -148,7 +149,7 @@
     // Pass the selected object to the new view controller.
     UITableViewCell *tappedCell = sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.filteredData[indexPath.row];
     DetailsViewController *detailsViewController = [segue destinationViewController];
     detailsViewController.movie = movie;
 }
