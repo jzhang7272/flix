@@ -20,11 +20,9 @@
 
 
 @implementation MoviesViewController
+// Gets called everytime screen loads
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
 }
 
 - (void)viewDidLoad {
@@ -34,14 +32,18 @@
     self.tableView.delegate = self;
     
     // Start Activity Indicator (must allocate for it to show up)
-    
-    [self fetchMovies];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
     
     // Refresh
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    [self fetchMovies];
 }
+
 - (void)fetchMovies {
     [self.activityIndicator startAnimating];
     // Create network request

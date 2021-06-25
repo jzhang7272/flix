@@ -19,6 +19,18 @@
 @end
 
 @implementation DetailsViewController
+//- (void)updateLabelPreferredMaxLayoutWidthToCurrentWidth:(UILabel *)label {
+//    label.preferredMaxLayoutWidth =
+//        [label alignmentRectForFrame:label.frame].size.width;
+//}
+//
+//- (void)viewDidLayoutSubviews {
+//    [super viewDidLayoutSubviews];
+//
+//    [self updateLabelPreferredMaxLayoutWidthToCurrentWidth:self.titleLabel];
+//
+//    [self.view layoutSubviews];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,10 +48,11 @@
     
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
-    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %@/10",self.movie[@"vote_average"]];
+    NSString *ratingString = [NSString stringWithFormat:@"%@",self.movie[@"vote_average"]];
+    double rating = [ratingString doubleValue];
+    self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %.1f/10",rating];
     [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
-    [self.ratingLabel sizeToFit];
     
     // Add image border
     [self.posterView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
