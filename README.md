@@ -1,6 +1,6 @@
-# Project 2 - *Name of App Here*
+# Project 2 - *Flix*
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flix** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **X** hours spent in total
 
@@ -20,7 +20,7 @@ The following **optional** features are implemented:
 
 - [X] User can tap a poster in the collection view to see a detail screen of that movie
 - [X] User can search for a movie.
-- [ ] All images fade in as they are loading.
+- [X] All images fade in as they are loading.
 - [ ] User can view the large movie poster by tapping on a cell.
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the selection effect of the cell.
@@ -35,7 +35,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
+1. edge cases
 2.
 
 ## Video Walkthrough
