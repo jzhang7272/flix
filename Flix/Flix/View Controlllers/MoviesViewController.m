@@ -12,19 +12,16 @@
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
+
 @implementation MoviesViewController
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.activityIndicator.center=self.view.center;
-    [self.activityIndicator startAnimating];
-    [self.view addSubview:self.activityIndicator];
 }
 
 - (void)viewDidLoad {
@@ -33,10 +30,15 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    // Stop Activity Indicator
-    [self fetchMovies];
-    [self.activityIndicator stopAnimating];
+    // Start Activity Indicator (must allocate for it to show up)
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    self.activityIndicator.center = self.view.center;
+    [self.activityIndicator startAnimating];
+    [self.view addSubview:self.activityIndicator];
     
+    [self fetchMovies];
+    
+    // Refresh
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
@@ -80,6 +82,7 @@
         [self.refreshControl endRefreshing];
        }];
     [task resume];
+    [self.activityIndicator stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
