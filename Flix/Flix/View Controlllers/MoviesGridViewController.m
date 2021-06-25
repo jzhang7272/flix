@@ -8,6 +8,7 @@
 #import "MoviesGridViewController.h"
 #import "MovieCollectionCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DetailsViewController.h"
 
 @interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -93,6 +94,18 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.movies.count;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    UICollectionViewCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
+    NSDictionary *movie = self.movies[indexPath.row];
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    detailsViewController.movie = movie;
 }
 
 @end

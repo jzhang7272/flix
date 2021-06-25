@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURL = self.movie[@"poster_path"];
     NSString *fullURL = [baseURL stringByAppendingString:posterURL];

@@ -90,7 +90,7 @@
             </objects>
             <point key="canvasLocation" x="994" y="-722"/>
         </scene>
-        <!--Title-->
+        <!--Movie Details-->
         <scene sceneID="jPI-0X-pMM">
             <objects>
                 <viewController id="dgH-l2-Oxp" customClass="DetailsViewController" sceneMemberID="viewController">
@@ -126,7 +126,7 @@
                         <viewLayoutGuide key="contentLayoutGuide" id="fBo-yo-xDC"/>
                         <viewLayoutGuide key="frameLayoutGuide" id="xmG-bA-xbi"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" title="Title" id="LR4-i3-CNU"/>
+                    <navigationItem key="navigationItem" title="Movie Details" id="LR4-i3-CNU"/>
                     <connections>
                         <outlet property="backdropView" destination="kU8-1b-hhw" id="QI6-FV-50d"/>
                         <outlet property="posterView" destination="Q7q-VG-ljT" id="rSd-2J-hxU"/>
@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5n-9a-mNa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="253.62318840579712" y="1395.5357142857142"/>
+            <point key="canvasLocation" x="993" y="1598"/>
         </scene>
         <!--Row-->
         <scene sceneID="J8K-jn-vtm">
@@ -209,6 +209,7 @@
                                         <size key="customSize" width="198" height="259"/>
                                         <connections>
                                             <outlet property="posterView" destination="Dwp-QH-mj0" id="cKq-VA-kB0"/>
+                                            <segue destination="dgH-l2-Oxp" kind="show" id="iqE-bv-tD3"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -224,9 +225,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeA-Xw-xfK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1827.5362318840582" y="712.5"/>
+            <point key="canvasLocation" x="1865" y="713"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="iqE-bv-tD3"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
