@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface DetailsViewController ()
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *backdropView;
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -23,13 +24,11 @@
 //    label.preferredMaxLayoutWidth =
 //        [label alignmentRectForFrame:label.frame].size.width;
 //}
-//
-//- (void)viewDidLayoutSubviews {
+//-(void)viewDidLayoutSubviews {
 //    [super viewDidLayoutSubviews];
-//
-//    [self updateLabelPreferredMaxLayoutWidthToCurrentWidth:self.titleLabel];
-//
+////    [self updateLabelPreferredMaxLayoutWidthToCurrentWidth:self.synopsisLabel];
 //    [self.view layoutSubviews];
+//    self.scrollView.contentSize = self.view.frame.size;
 //}
 
 - (void)viewDidLoad {
@@ -53,6 +52,8 @@
     self.ratingLabel.text = [NSString stringWithFormat:@"Rating: %.1f/10",rating];
     [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
+    
+    self.scrollView.contentSize = self.view.frame.size;
     
     // Add image border
     [self.posterView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
