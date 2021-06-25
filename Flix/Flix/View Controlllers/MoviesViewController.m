@@ -22,6 +22,9 @@
 @implementation MoviesViewController
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
 }
 
 - (void)viewDidLoad {
@@ -31,10 +34,6 @@
     self.tableView.delegate = self;
     
     // Start Activity Indicator (must allocate for it to show up)
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.activityIndicator.center = self.view.center;
-    [self.activityIndicator startAnimating];
-    [self.view addSubview:self.activityIndicator];
     
     [self fetchMovies];
     
@@ -44,7 +43,7 @@
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 - (void)fetchMovies {
-    
+    [self.activityIndicator startAnimating];
     // Create network request
     // change url depending on which information we want to retrieve
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
@@ -53,6 +52,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
+               [self.activityIndicator stopAnimating];
                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Get Movies" message:@"No internet connection." preferredStyle:(UIAlertControllerStyleAlert)];
                
                // create an OK action
@@ -73,7 +73,7 @@
 //               for (NSDictionary *movie in self.movies){
 //                   NSLog(@"%@",movie[@"title"]);
 //               }
-               
+               [self.activityIndicator stopAnimating];
                [self.tableView reloadData];
                // TODO: Get the array of movies
                // TODO: Store the movies in a property to use elsewhere
@@ -82,7 +82,6 @@
         [self.refreshControl endRefreshing];
        }];
     [task resume];
-    [self.activityIndicator stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
