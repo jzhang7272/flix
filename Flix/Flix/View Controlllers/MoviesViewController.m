@@ -136,6 +136,10 @@
                                     failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {
                                         // do something for the failure condition
                                     }];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    UIView *backgroundView = [[UIView alloc] init];
+    backgroundView.backgroundColor = UIColor.lightGrayColor;
+    cell.selectedBackgroundView = backgroundView;
 //    Original code:
 //    [cell.posterView setImageWithURL:URL];
     
