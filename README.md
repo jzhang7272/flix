@@ -43,7 +43,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/ZTQp8iA.gif' title='App Walkthrough' width=''/>
+<img src='https://i.imgur.com/fgpj4aR.gif' title='App Walkthrough' width=''/>
 <img src='https://i.imgur.com/17u90TW.gif' title='No Internet' width=''/>
 
 GIF created with [Kap](https://getkap.co/).
