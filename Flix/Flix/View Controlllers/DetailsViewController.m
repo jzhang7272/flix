@@ -45,6 +45,71 @@
     NSURL *bURL = [NSURL URLWithString:fullBackdropURL];
     [self.backdropView setImageWithURL:bURL];
     
+    // Fading in for small image
+    NSURLRequest *request = [NSURLRequest requestWithURL:pURL];
+    [self.posterView setImageWithURLRequest:request placeholderImage:nil
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                        if (imageResponse) {
+                                            NSLog(@"Image was NOT cached, fade in image");
+                                            self.posterView.alpha = 0.0;
+                                            self.posterView.image = image;
+                                            
+                                            //Animate UIImageView back to alpha 1 over 0.3sec
+                                            [UIView animateWithDuration:0.3 animations:^{
+                                               self.posterView.alpha = 1.0;
+                                            }];
+                                        }
+                                        else {
+                                            NSLog(@"Image was cached so just update the image");
+                                            self.posterView.image = image;
+                                        }
+                                    }
+                                    failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {
+                                        // do something for the failure condition
+                                    }];
+    
+    // Low to High Resolution for backdrop
+    NSString *urlSmallString = [NSString stringWithFormat:@"https://image.tmdb.org/t/p/w45%@", self.movie[@"backdrop_path"]];
+    NSURL *urlSmall = [NSURL URLWithString:urlSmallString];
+    NSString *urlLargeString = [NSString stringWithFormat:@"https://image.tmdb.org/t/p/original%@", self.movie[@"backdrop_path"]];
+    NSURL *urlLarge= [NSURL URLWithString:urlLargeString];
+    NSURLRequest *requestSmall = [NSURLRequest requestWithURL:urlSmall];
+    NSURLRequest *requestLarge = [NSURLRequest requestWithURL:urlLarge];
+    
+    __weak DetailsViewController *weakSelf = self;
+    [weakSelf.backdropView setImageWithURLRequest:requestSmall
+                          placeholderImage:nil
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *smallImage) {
+                                       
+                                       // smallImageResponse will be nil if the smallImage is already available
+                                       // in cache (might want to do something smarter in that case).
+                                       weakSelf.backdropView.alpha = 0.0;
+                                       weakSelf.backdropView.image = smallImage;
+                                       
+                                       [UIView animateWithDuration:0.3
+                                                        animations:^{
+                                                            
+                                                            weakSelf.backdropView.alpha = 1.0;
+                                                            
+                                                        } completion:^(BOOL finished) {
+                                                            // The AFNetworking ImageView Category only allows one request to be sent at a time
+                                                            // per ImageView. This code must be in the completion block.
+                                                            [weakSelf.backdropView setImageWithURLRequest:requestLarge
+                                                                                  placeholderImage:smallImage
+                                                                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage * largeImage) {
+                                                                                                weakSelf.backdropView.image = largeImage;
+                                                                                  }
+                                                                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                                               // do something for the failure condition of the large image request
+                                                                                               // possibly setting the ImageView's image to a default image
+                                                                                           }];
+                                                        }];
+                                   }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                       // do something for the failure condition
+                                       // possibly try to get the large image
+                                   }];
+    
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
     NSString *ratingString = [NSString stringWithFormat:@"%@",self.movie[@"vote_average"]];
