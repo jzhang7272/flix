@@ -2,7 +2,7 @@
 
 **Flix** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: 15 hours spent in total
 
 ## User Stories
 
@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 - [X] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the selection effect of the cell.
 - [ ] Customize the navigation bar.
-- [ ] Customize the UI.
+- [X] Customize the UI.
 - [ ] User can view the app on various device sizes and orientations.
 - [X] Run your app on a real device.
 
@@ -35,8 +35,9 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. edge cases
-2.
+1. Implementing a "Sort By" feature, with date of release, alphabetical, or ratings/popularity
+2. Implementing a third tab for "Favorites" or "To Watch" 
+3. Adding popup error messages for errors.
 
 ## Video Walkthrough
 
@@ -47,8 +48,7 @@ Here's a walkthrough of implemented user stories:
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
-
-Describe any challenges encountered while building the app.
+I struggled with implementing the search bar at first, as my original method for doing so did not make full use of NSPredicate, and used an inefficient method with dictionaries. I also wanted to try implementing the activity indicator programatically, so I spent more time trying to understand that. I spent a lot of time on the earlier stages in trying to fix small UI mistakes, and thus I didn't have more time later to work on more advanced UI design.
 
 ## Credits
 
